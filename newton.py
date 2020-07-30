@@ -19,15 +19,6 @@ def newton(f, df, x0, tol, max_iter):
 		x = x - fx/df(x)            # Newton-iteration
 		print('k ={:3d}, x = {:18.15f}, f(x) = {:10.3e}'.format(k+1, x, f(x)))
 	return x, k+1
-"""
-# INPUT
-f = lambda x : 4*x**2 + 3*x - 1		# Function 
-df = lambda x : 8*x**7+3		# Derivative of function
-x0 = 0.5                  	# Starting value
-
-x, nit = newton(f, df, x0)  # Apply Newton
-print('\n\nResult:\nx={}, number of iterations={}'.format(x, nit))
-"""
 
 @click.command()
 
