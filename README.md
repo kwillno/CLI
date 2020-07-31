@@ -10,7 +10,7 @@ To start using this repo yourself, clone it into your home-directory and copy th
 
 After adding aliases the commands can be used from any directory:
 
-´´´
+```
 $newton -eq 4*x**2 -3 -deq 8*x -x0 2
 x=0.8660254037844387
-´´´
+```
