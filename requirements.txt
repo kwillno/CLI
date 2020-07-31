@@ -1,2 +1,2 @@
-funcy
+numpy
 click
