@@ -46,9 +46,6 @@ def process(equation,derivative,x0,tol,iterations,verbose):
 		print('\n\nResult:\nx={}, number of iterations={}'.format(x, nit))
 	else:
 		print("x={}".format(x))
-	
-
-	
 
 if __name__=="__main__":
 	process()

@@ -1,3 +1,4 @@
 # CLI aliases
 
 alias newton="python3 ~/CLI/newton.py"
+alias temp="python3 ~/CLI/temp/temp.py"
