@@ -1,6 +1,7 @@
 # Introduction
 
 This is a repository for my own CLI(Command Line Interfaces). I am using the click python library for handling of arguments.  
+The project is built for Linux, specifically using Bash on Linux Mint 19.3
 
 # Setup
 
