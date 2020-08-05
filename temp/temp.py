@@ -3,17 +3,19 @@ from matplotlib import pyplot as plt
 import csv
 import click
 
-def printTemp(humidity):
+def printTemp(humidity,verbose):
 
 	temp, humd = 0,0
 
 	with open("CLI/temp/templog.txt",newline="\n") as f:
 		data = csv.reader(f,delimiter=",")
 		for row in f:
+			tm = int(row[0:10])
 			temp = float(row[11:16])
 			humd = float(row[17:22])
 		f.close()
 
+	print("Last log at: " + time.ctime(tm))
 	print("Temperature: {:.1f} C".format(temp))
 	if humidity:
 		print("Humidity: {:.1f} %".format(humd))
@@ -29,6 +31,7 @@ def plotTemp(hours,humidity,tbu,tbl,hbu,hbl):
 	with open("CLI/temp/templog.txt",newline="\n") as f:
 		data = csv.reader(f,delimiter=",")
 		for row in f:
+			lastTime = int(row[0:10])
 			if int(row[0:10]) >= (tm - selectedTime):
 				timeArr.append(-(tm -int(row[0:10]))/60**2)
 				tempArr.append(float(row[11:16]))
@@ -51,7 +54,7 @@ def plotTemp(hours,humidity,tbu,tbl,hbu,hbl):
 		ax2.tick_params(axis="y", labelcolor="tab:blue")
 		ax2.legend(loc="upper right")
 
-	plt.title("Last " + str(int(selectedTime/(60**2))) + " hours")
+	plt.title(str(int(selectedTime/(60**2))) + " hours before " + time.ctime(lastTime)[4:16] + time.ctime(lastTime)[19:])
 	fig.tight_layout()
 	plt.show()
 
@@ -69,12 +72,13 @@ def plotTemp(hours,humidity,tbu,tbl,hbu,hbl):
 
 def process(plot,timeframe,humidity,tbu,tbl,hbu,hbl,verbose):
 	if verbose:
-		printTemp(True)
+		printTemp(True,verbose)
+
 	if plot:
 		plotTemp(timeframe,humidity,tbu,tbl,hbu,hbl)
 
 	if not plot and not verbose:
-		printTemp(humidity)
+		printTemp(humidity,0)
 
 
 if __name__=="__main__":
