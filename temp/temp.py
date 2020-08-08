@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 import csv
 import click
 
-def printTemp(humidity,verbose):
+def printTemp(humidity):
 
 	temp, humd = 0,0
 
@@ -20,7 +20,7 @@ def printTemp(humidity,verbose):
 	if humidity:
 		print("Humidity: {:.1f} %".format(humd))
 
-def plotTemp(hours,humidity,tbu,tbl,hbu,hbl):
+def plotTemp(hours,humidity,tb,hb):
 	timeArr = []
 	tempArr = []
 	humdArr = []
@@ -41,7 +41,8 @@ def plotTemp(hours,humidity,tbu,tbl,hbu,hbl):
 	fig,ax1 = plt.subplots()
 
 	ax1.set_xlabel("time (hour)")
-	ax1.set_ylim([tbl,tbu])
+	if not tb == (0.0,0.0):
+		ax1.set_ylim(tb)
 	ax1.plot(timeArr,tempArr,"r-",label="Temperature")
 	ax1.tick_params(axis="y", labelcolor="tab:red")
 	ax1.legend(loc="upper left")
@@ -49,7 +50,8 @@ def plotTemp(hours,humidity,tbu,tbl,hbu,hbl):
 	if humidity:
 		ax2 = ax1.twinx()
 
-		ax2.set_ylim([hbl,hbu])
+		if not hb == (0.0,0.0):
+			ax2.set_ylim(hb)
 		ax2.plot(timeArr,humdArr,"b-",label="Humidity")
 		ax2.tick_params(axis="y", labelcolor="tab:blue")
 		ax2.legend(loc="upper right")
@@ -63,22 +65,23 @@ def plotTemp(hours,humidity,tbu,tbl,hbu,hbl):
 
 @click.option("--plot","-p","plot",count=True,help="Plot temperature and humidity for selected timeframe")
 @click.option("--time","-t","timeframe",default=12,help="Timeframe for plotting")
-@click.option("--humidity","-h","humidity",count=True,help="Show humidity, both in plot and console output.")
-@click.option("--tempboundupper","-tbu","tbu",default=28,help="Upper bound for plotting temperature.")
-@click.option("--tempboundlower","-tbl","tbl",default=21,help="Lower bound for plotting temperature.")
-@click.option("--humdboundupper","-hbu","hbu",default=85,help="Upper bound for plotting humidity.")
-@click.option("--humdboundlower","-hbl","hbl",default=25,help="Lower bound for plotting humidity.")
+@click.option("--humidity","-h","humidity",count=True,help="Show humidity, both in plot and console output")
+@click.option("--tempbound","-tb","tempbound",default=(0.0,0.0),help="Bounds for plotting temperature")
+@click.option("--humbound","-hb","humbound",default=(0.0,0.0),help="Bounds for plotting humidity")
 @click.option("--verbose","-v","verbose",count=True,help="Force full output")
 
-def process(plot,timeframe,humidity,tbu,tbl,hbu,hbl,verbose):
+def process(plot,timeframe,humidity,tempbound,humbound,verbose):
 	if verbose:
-		printTemp(True,verbose)
+		printTemp(True)
+
+	if not humbound == (0.0,0.0):
+		humidity = True
 
 	if plot:
-		plotTemp(timeframe,humidity,tbu,tbl,hbu,hbl)
+		plotTemp(timeframe,humidity,tempbound,humbound)
 
 	if not plot and not verbose:
-		printTemp(humidity,0)
+		printTemp(humidity)
 
 
 if __name__=="__main__":

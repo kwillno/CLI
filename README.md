@@ -29,7 +29,6 @@ x=0.8660260285735061, number of iterations=5
 
 ## Todo:
 
-- Adding auto-scaling plots
 - Restructure with Math-directory
 - Add integrating functions (Simpson, RK)
 - Add automatic setup-script (Setting up aliases)
