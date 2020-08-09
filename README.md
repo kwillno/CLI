@@ -32,3 +32,4 @@ x=0.8660260285735061, number of iterations=5
 - Restructure with Math-directory
 - Add integrating functions (Simpson, RK)
 - Add automatic setup-script (Setting up aliases)
+- Add speedtest function
