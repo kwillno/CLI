@@ -5,7 +5,11 @@ The project is built for Linux, specifically using Bash on Linux Mint 19.3
 
 # Setup
 
-To start using this repo yourself, clone it into your home-directory and copy the contents of aliases.txt into your .bash_aliases file. 
+To start using this repo yourself, clone it into your home-directory and copy the contents of aliases.txt into your .bash_aliases file.  
+You also need to run the following command in the /CLI directory:
+```
+$ pip3 install -r requirements.txt
+```
 
 # Usage
 
