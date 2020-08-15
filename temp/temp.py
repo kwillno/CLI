@@ -38,12 +38,22 @@ def plotTemp(hours,humidity,tb,hb):
 				humdArr.append(float(row[17:22]))
 		f.close()
 
+	newTimeArr = [timeArr[0]]
+	newTempArr = [tempArr[0]]
+	newHumdArr = [humdArr[0]]
+
+
+	for i in range(1,len(timeArr)-1):
+		newTimeArr.append(timeArr[i])
+		newTempArr.append((tempArr[i-1]+tempArr[i]+tempArr[i+1])/3)
+		newHumdArr.append((humdArr[i-1]+humdArr[i]+humdArr[i+1])/3)
+
 	fig,ax1 = plt.subplots()
 
 	ax1.set_xlabel("time (hour)")
 	if not tb == (0.0,0.0):
 		ax1.set_ylim(tb)
-	ax1.plot(timeArr,tempArr,"r-",label="Temperature")
+	ax1.plot(newTimeArr,newTempArr,"r-",label="Temperature")
 	ax1.tick_params(axis="y", labelcolor="tab:red")
 	ax1.legend(loc="upper left")
 
@@ -52,7 +62,7 @@ def plotTemp(hours,humidity,tb,hb):
 
 		if not hb == (0.0,0.0):
 			ax2.set_ylim(hb)
-		ax2.plot(timeArr,humdArr,"b-",label="Humidity")
+		ax2.plot(newTimeArr,newHumdArr,"b-",label="Humidity")
 		ax2.tick_params(axis="y", labelcolor="tab:blue")
 		ax2.legend(loc="upper right")
 
