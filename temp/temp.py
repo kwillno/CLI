@@ -1,7 +1,8 @@
 import time
-from matplotlib import pyplot as plt
 import csv
+
 import click
+from matplotlib import pyplot as plt
 
 def printTemp(humidity):
 
