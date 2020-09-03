@@ -10,7 +10,7 @@ def checkDown(sp):
 
 def checkUp(sp):
 	up = sp.upload()/10**6 # in Mbit/s
-	print("Download speed: {0:.2f} Mbit/s".format(up))
+	print("Upload speed: {0:.2f} Mbit/s".format(up))
 
 def checkPing(sp):
 	ping = sp.results.ping
