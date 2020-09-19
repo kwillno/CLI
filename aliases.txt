@@ -3,3 +3,4 @@
 alias newton="python3 ~/CLI/math/newton.py"
 alias temp="python3 ~/CLI/temp/temp.py"
 alias sp="python3 ~/CLI/sp.py"
+alias prob="python3 ~/CLI/math/prob.py"
