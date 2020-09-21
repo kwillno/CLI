@@ -58,6 +58,10 @@ def poissonFunc(x,l):
 
 
 def process(N,n,k,r,x,p,l,nCr,nPr,binomial,negbin,hypGeo,poisson):
+	"""
+	Calculates probabilities of distrubutions given parameters.
+	Can also calculate nPr and nCr
+	"""
 	if nCr:
 		print(nCrFunc(n,r))
 	if nPr:
