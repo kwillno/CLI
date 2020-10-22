@@ -52,7 +52,7 @@ def poissonFunc(x,l):
 @click.option("--nCr","-C","nCr",count=True,default=False,help="n choose r, required arguments -n -r")
 @click.option("--nPr","-P","nPr",count=True,default=False,help="n permutation r, required arguments -n -r")
 @click.option("--binomial","-b","binomial",count=True,default=False,help="Binomial distribution, required arguments -x -k -p")
-@click.option("--negativebinomial","-nb","negbin",count=True,default=False,help="Negative binomial distribution, required arguments -x -n -p")
+@click.option("--negativebinomial","-nb","negbin",count=True,default=False,help="Negative binomial distribution, required arguments -x -k -p")
 @click.option("--hypergeometric","-hg","hypGeo",count=True,default=False,help="Hypergeometric distribution, required arguments -x -N -n -k")
 @click.option("--poisson","-pois","poisson",count=True,default=False,help="Poisson distribution, required arguments -x -l")
 
@@ -68,6 +68,8 @@ def process(N,n,k,r,x,p,l,nCr,nPr,binomial,negbin,hypGeo,poisson):
 		print(nPrFunc(n,r))
 	if binomial:
 		print(binomialFunc(x,n,p))
+	if negbin:
+		print(negbinomialFunc(x,k,p))
 	if hypGeo:
 		print(hyperGeometricFunc(x,N,n,k))
 	if poisson:
