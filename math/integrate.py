@@ -1,48 +1,40 @@
 import click
 import numpy as np
+from matplotlib import pyplot as plt
 
-def MonteCarlo(f,a,b,N,v):
+def MonteCarlo(f,a,b,N,v,p):
 
-	res = N/(b-a)
-
-	x = np.linspace(a,b,N)
+	x = np.linspace(a,b)
 	val = f(x)
 
-	xlim = [a,b]
-	ylim = [np.min(val),np.max(val)]
+	minval,maxval = np.min(val),np.max(val)
 
-	points = np.random.rand(N,2)
-	for i in range(len(points)):
-		points[i][0] = points[i][0]*(xlim[1]-xlim[0]) + xlim[0]
-		points[i][1] = points[i][1]*(ylim[1]-ylim[0]) + ylim[0]
+	if minval > 0:
+		minval = 0
+	if maxval < 0:
+		maxval = 0
 
+	pointsX = np.random.uniform(a,b,N)
+	pointsY = np.random.uniform(minval,maxval,N)
 
-	selpoints = []
-	under = 0
-	for i in range(N):
-		if (points[i][1] >= 0) and (points[i][1] <= f(points[i][0])):
-			under += 1
-			selpoints.append(points[i])
+	numpos = np.where((pointsY <= f(pointsX)) & (pointsY >= 0), True, False)
+	numneg = np.where((pointsY >= f(pointsX)) & (pointsY < 0), True, False)
+	
+	under = sum(numpos) - sum(numneg)
 
-		
-		elif (points[i][1] < 0) and (points[i][1] >= f(points[i][0])):
-			under -= 1
-			selpoints.append(points[i])
-		
+	I = (under/N)*((b-a)*(maxval-minval))
 
-	I = (under/N)*((xlim[1]-xlim[0])*(ylim[1]-ylim[0]))
-
-	if v:
+	if v or p:
 		print("Total: " + str(N) + "   Under: " + str(under))
 	print("MonteCarlo result: " + f"{I:.5f}")
 
-	if v:
+	if p:
 		plt.figure(0)
 		plt.plot(x,val)
-		for i in range(len(points)):
-			plt.plot(points[i][0],points[i][1],"r.")
-		for i in range(len(selpoints)):
-			plt.plot(selpoints[i][0],selpoints[i][1],"b.")
+		plt.plot(pointsX,pointsY,"r.")
+		for i in range(len(pointsX)):
+			if (pointsY[i] <= f(pointsX[i])) & (pointsY[i] >= 0) or (pointsY[i] >= f(pointsX[i])) & (pointsY[i] < 0):
+				plt.plot(pointsX[i],pointsY[i],"b.")
 		plt.show()
 
 	return I
@@ -51,20 +43,30 @@ def MonteCarlo(f,a,b,N,v):
 
 @click.command()
 
+@click.option("--method","-m","method",required=True,type=str,default="MC",help="Method to be used")
 @click.option("--function","-f","func",required=True,type=str,help="Equation to be used")
-@click.option("--lower","-a","lower",required=True,type=float,help="Lower bound")
-@click.option("--upper","-b","upper",required=True,type=float,help="Upper bound")
-@click.option("--number","-N","density",required=True,type=int,help="Number N")
+@click.option("--lower","-a","lower",required=True,type=str,help="Lower bound")
+@click.option("--upper","-b","upper",required=True,type=str,help="Upper bound")
+@click.option("--number","-N","density",required=True,type=str,default="1e4",help="Number N")
 @click.option("--verbose","-v","verbose",count=True,default=False,help="Outputs all processes, not only final answer")
+@click.option("--plot","-p","plot",count=True,default=False,help="Plots graph of integration")
 
 
-def process(func,lower,upper,density,verbose):
+def process(method,func,lower,upper,density,verbose,plot):
 	"""
 	Processes input and output of Newtons iterative algorithm for a graphs intersection with zero.
 	"""
+	
 	f = lambda x : eval(func)
+	lower,upper = float(eval(lower)),float(eval(upper))
 
-	MonteCarlo(f,lower,upper,density,verbose)
+	if method == "MC":
+		density = int(eval(density))
+
+		if plot and (density > 1e4):
+			density = int(1e4)
+
+		MonteCarlo(f,lower,upper,density,verbose,plot)
 
 if __name__=="__main__":
 	process()
