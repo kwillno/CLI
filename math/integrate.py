@@ -1,4 +1,5 @@
 import click
+import time as tim
 import numpy as np
 from matplotlib import pyplot as plt
 
@@ -50,12 +51,16 @@ def MonteCarlo(f,a,b,N,v,p):
 @click.option("--number","-N","density",required=True,type=str,default="1e4",help="Number N")
 @click.option("--verbose","-v","verbose",count=True,default=False,help="Outputs all processes, not only final answer")
 @click.option("--plot","-p","plot",count=True,default=False,help="Plots graph of integration")
+@click.option("--time","-t","time",count=True,default=False,help="Prints time used for function to complete, do not use with -p")
 
 
-def process(method,func,lower,upper,density,verbose,plot):
+def process(method,func,lower,upper,density,verbose,plot,time):
 	"""
 	Processes input and output of Newtons iterative algorithm for a graphs intersection with zero.
 	"""
+	if time:
+		startTime = tim.time()
+
 	
 	f = lambda x : eval(func)
 	lower,upper = float(eval(lower)),float(eval(upper))
@@ -67,6 +72,10 @@ def process(method,func,lower,upper,density,verbose,plot):
 			density = int(1e4)
 
 		MonteCarlo(f,lower,upper,density,verbose,plot)
+
+	if time:
+		t = (tim.time()-startTime)
+		print("Time used: " + f"{t:.4f}" + "s")
 
 if __name__=="__main__":
 	process()
