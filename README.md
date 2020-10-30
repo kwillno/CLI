@@ -7,6 +7,7 @@ The project is built for Linux, specifically using Bash on Linux Mint 19.3
 
 To start using this repo yourself, clone it into your home-directory and run the following command in /CLI
 ```
+$ cd CLI
 $ ./setup.sh
 ```
 
