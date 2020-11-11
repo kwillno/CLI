@@ -1,0 +1,3 @@
+[submodule "rmv/rmview"]
+	path = rmv/rmview
+	url = git@github.com:bordaigorl/rmview.git
