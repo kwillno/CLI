@@ -1,3 +1,0 @@
-cd ~/CLI/rmv
-
-rmview
