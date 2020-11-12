@@ -50,7 +50,7 @@ def get():
 
 	lines.append(startline)
 
-	with open("aliases.txt","r") as f:
+	with open("core/aliases.txt","r") as f:
 		data = f.readlines()
 
 	for i in range(len(data)):
