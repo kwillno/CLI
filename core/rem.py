@@ -31,6 +31,12 @@ def process(adr,rot):
 		param["orientation"] = rot
 	send(param)
 
+	keystatus = system("ssh-keygen -F " + adr)
+	print(keystatus)
+	if keystatus != 0:
+		system("ssh " + adr)
+		system("exit")
+
 	system("rmview ~/CLI/rmv/rmview.json")
 
 if __name__ == "__main__":
