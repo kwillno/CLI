@@ -71,4 +71,4 @@ if checkfileexists(path):
 else:
 
 	print("setup.py failed")
-	print("Please create file .bash_aliases in home directory.")
+	print("Please create file .bash_aliases in home/user directory.")
