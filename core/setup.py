@@ -5,70 +5,74 @@ endline = "# -- END CLI --\n"
 
 path = "../.bash_aliases"
 
+
 def checkfileexists(path):
-	val = os.path.exists(path)
-	return val
+    val = os.path.exists(path)
+    return val
+
 
 def write(path, lines):
-	with open(path,"w") as f:
-		for i in range(len(lines)):
-			f.write(lines[i])
+    with open(path, "w") as f:
+        for i in range(len(lines)):
+            f.write(lines[i])
+
 
 def findOld(path):
-	with open(path,"r") as f:
-		data = f.readlines()
+    with open(path, "r") as f:
+        data = f.readlines()
 
-	start = 0
-	end = 0
-	for i in range(len(data)):
-		if data[i] == startline:
-			start = i
+    start = 0
+    end = 0
+    for i in range(len(data)):
+        if data[i] == startline:
+            start = i
 
-		if data[i] == endline:
-			end = i
-			
-	return start, end
+        if data[i] == endline:
+            end = i
+
+    return start, end
 
 
-def replace(start,end,path):
-	with open(path,"r") as f:
-		data = f.readlines()
+def replace(start, end, path):
+    with open(path, "r") as f:
+        data = f.readlines()
 
-	for i in range(len(data)):
-		if (i >= start) and (i <= end):
-			data.pop(start)
+    for i in range(len(data)):
+        if (i >= start) and (i <= end):
+            data.pop(start)
 
-	lines = get()
+    lines = get()
 
-	for i in range(len(lines)):
-		data.append(lines[i])
+    for i in range(len(lines)):
+        data.append(lines[i])
 
-	write(path, data)
+    write(path, data)
+
 
 def get():
-	lines = []
+    lines = []
 
-	lines.append(startline)
+    lines.append(startline)
 
-	with open("core/aliases.txt","r") as f:
-		data = f.readlines()
+    with open("core/aliases.txt", "r") as f:
+        data = f.readlines()
 
-	for i in range(len(data)):
-		lines.append(data[i])
+    for i in range(len(data)):
+        lines.append(data[i])
 
-	lines.append(endline)
+    lines.append(endline)
 
-	return lines
+    return lines
 
 
 if checkfileexists(path):
 
-	s, e = findOld(path)
+    s, e = findOld(path)
 
-	replace(s,e,path)
+    replace(s, e, path)
 
-	print("setup.py completed")
+    print("setup.py completed")
 else:
 
-	print("setup.py failed")
-	print("Please create file .bash_aliases in home/user directory.")
+    print("setup.py failed")
+    print("Please create file .bash_aliases in home/user directory.")
