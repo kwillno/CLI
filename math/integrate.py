@@ -125,9 +125,9 @@ def process(method, func, lower, upper, density, tolerance, verbose, plot, time)
     Approximates integral with given method.
 
     Methods include:
-    AQ 		: Adaptive Quadrature(default)
-    trap 	: Trapezoidal approximation
-    MC 		: MonteCarlo approximation
+    AQ 		: Adaptive Quadrature(default)\n
+    trap 	: Trapezoidal approximation\n
+    MC 		: MonteCarlo approximation\n
 
     """
     if time:
